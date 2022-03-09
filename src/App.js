@@ -7,6 +7,7 @@ import {
 import './App.css';
 import logo from './trivia.png';
 import Login from './pages/Login';
+import Feedback from './pages/Feedback';
 
 class App extends React.Component {
   render() {
@@ -15,6 +16,7 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Login } />
+            <Route path="/feedback" component={ Feedback } />
           </Switch>
         </BrowserRouter>
         <div className="App">
@@ -26,7 +28,6 @@ class App extends React.Component {
           </header>
         </div>
       </div>
-
     );
   }
 }
