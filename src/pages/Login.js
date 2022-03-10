@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getEmail, saveInfos } from '../redux/actions/player';
+import { getTokenFromAPI } from '../APIservices/Api';
 
 class Login extends React.Component {
   constructor() {
@@ -51,9 +52,10 @@ class Login extends React.Component {
 
   handleClick = () => {
     const { gravatarEmail, name, assertions, score } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(getEmail(gravatarEmail));
     dispatch(saveInfos(name, assertions, score));
+    history.push('/homegame');
   }
 
   render() {
