@@ -6,11 +6,12 @@ export const getTokenFromAPI = async () => {
   return data;
 };
 
-// export const getImgFromAPI = async () => {
-//   const { gravatarEmail } = this.props;
-//   const hashGerada = md5(gravatarEmail).toString();
-//   const request = await fetch(`https://www.gravatar.com/avatar/${hashGerada}`);
-//   return request;
-// };
+export const getJokesFromAPI = async () => {
+  const ObjToken = await getJokesFromAPI();
+  const { token } = ObjToken;
+  const requestJoke = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+  const ObjJokesAttributes = await requestJoke.json();
+  return ObjJokesAttributes;
+};
 
 export default connect()(getTokenFromAPI);
