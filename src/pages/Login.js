@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getEmail, saveInfos } from '../redux/actions/player';
-import { getTokenFromAPI } from '../APIservices/Api';
 
 class Login extends React.Component {
   constructor() {

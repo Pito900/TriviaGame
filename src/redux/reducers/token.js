@@ -4,6 +4,10 @@ const INITIAL_STATE = {
 
 const token = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case 'GET_KEY':
+    return {
+      key: action.key,
+    };
   default:
     return state;
   }

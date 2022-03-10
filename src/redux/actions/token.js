@@ -2,9 +2,9 @@ import {
   GET_KEY,
 } from './actionTypes';
 
-const getToken = (key) => ({
+export const getToken = (key) => ({
   type: GET_KEY,
-  payload: key,
+  key,
 });
 
-export default getToken;
+// export default getToken;
