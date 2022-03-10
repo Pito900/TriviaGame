@@ -1,14 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { pictureThunk } from '../redux/actions/ranking';
 
 class Header extends React.Component {
+  componentDidMount() {
+    console.log(pictureThunk());
+  }
+
+  async currenciesThunk() {
+    const { currenciesThunk } = this.props;
+    await currenciesThunk();
+  }
+
   render() {
     const {
       name,
       score,
     } = this.props;
-    console.log(this.props);
     return (
       <section>
         <img src="" alt="" data-testid="header-profile-picture" />
