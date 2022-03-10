@@ -1,4 +1,3 @@
-import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 
 export const getTokenFromAPI = async () => {
@@ -7,16 +6,11 @@ export const getTokenFromAPI = async () => {
   return data;
 };
 
-export const getImgFromAPI = async () => {
-  const { gravatarEmail } = this.props;
-  const hashGerada = md5(gravatarEmail).toString();
-  const request = await fetch(`https://www.gravatar.com/avatar/${hashGerada}`);
-  const data = await request.json();
-  return data;
-};
+// export const getImgFromAPI = async () => {
+//   const { gravatarEmail } = this.props;
+//   const hashGerada = md5(gravatarEmail).toString();
+//   const request = await fetch(`https://www.gravatar.com/avatar/${hashGerada}`);
+//   return request;
+// };
 
-const mapStateToProps = ({ player }) => ({
-  gravatarEmail: player.gravatarEmail,
-});
-
-export default connect(mapStateToProps)(getImgFromAPI);
+export default connect()(getTokenFromAPI);

@@ -1,18 +1,12 @@
 import {
-  GET_PICTURE,
-  FETCH_API,
+  GET_PICTURE_SCORE_NAME,
 } from './actionTypes';
-import { getImgFromAPI } from '../../APIservices/Api';
 
-const getPicture = (picture) => ({
-  type: GET_PICTURE,
-  payload: picture,
+export const headerInfos = (name, score, picture) => ({
+  type: GET_PICTURE_SCORE_NAME,
+  name,
+  score,
+  picture,
 });
 
-export const pictureThunk = () => async (dispatch) => {
-  dispatch({ type: FETCH_API });
-  const pictureAPI = await getImgFromAPI();
-  dispatch(getPicture({ pictureAPI }));
-};
-
-export default getPicture;
+export default headerInfos;
