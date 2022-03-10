@@ -3,16 +3,14 @@ import {
   GRAVATAR_EMAIL,
 } from './actionTypes';
 
-const saveInfos = (name, assertions, score) => ({
+export const saveInfos = (name, assertions, score) => ({
   type: SAVE_INFOS,
-  payload: name,
+  name,
   assertions,
   score,
 });
 
-const getEmail = (gravatarEmail) => ({
+export const getEmail = (gravatarEmail) => ({
   type: GRAVATAR_EMAIL,
-  payload: gravatarEmail,
+  gravatarEmail,
 });
-
-export default { saveInfos, getEmail };

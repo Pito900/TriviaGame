@@ -1,10 +1,12 @@
 import {
-  GET_PICTURE,
+  GET_PICTURE_SCORE_NAME,
 } from './actionTypes';
 
-const getPicture = (picture) => ({
-  type: GET_PICTURE,
-  payload: picture,
+export const headerInfos = (name, score, picture) => ({
+  type: GET_PICTURE_SCORE_NAME,
+  name,
+  score,
+  picture,
 });
 
-export default getPicture;
+export default headerInfos;

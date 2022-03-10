@@ -1,10 +1,15 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+import { getEmail, saveInfos } from '../redux/actions/player';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       name: '',
+      assertions: 0,
+      score: 0,
       gravatarEmail: '',
       disabled: true,
     };
@@ -41,6 +46,13 @@ class Login extends React.Component {
         disabled: true,
       });
     }
+  }
+
+  handleClick = () => {
+    const { gravatarEmail, name, assertions, score } = this.state;
+    const { dispatch } = this.props;
+    dispatch(getEmail(gravatarEmail));
+    dispatch(saveInfos(name, assertions, score));
   }
 
   render() {
@@ -81,6 +93,7 @@ class Login extends React.Component {
             type="button"
             disabled={ disabled }
             data-testid="btn-play"
+            onClick={ this.handleClick }
           >
             Play
           </button>
@@ -90,4 +103,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatch: Proptypes,
+}.isRequired;
+
+export default connect()(Login);

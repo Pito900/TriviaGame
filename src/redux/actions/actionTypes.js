@@ -3,4 +3,6 @@ export const GRAVATAR_EMAIL = 'GRAVATAR_EMAIL';
 
 export const GET_KEY = 'GET_KEY';
 
-export const GET_PICTURE = 'GET_PICTURE';
+export const GET_PICTURE_SCORE_NAME = 'GET_PICTURE_SCORE_NAME';
+
+export const FETCH_API = 'FETCH_API';
