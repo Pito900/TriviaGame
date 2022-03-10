@@ -51,9 +51,10 @@ class Login extends React.Component {
 
   handleClick = () => {
     const { gravatarEmail, name, assertions, score } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(getEmail(gravatarEmail));
     dispatch(saveInfos(name, assertions, score));
+    history.push('/homegame');
   }
 
   render() {
