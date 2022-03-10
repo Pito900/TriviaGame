@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getEmail, saveInfos } from '../redux/actions/player';
+import { getTokenFromAPI } from '../APIservices/Api';
+import { getToken } from '../redux/actions/token';
 
 class Login extends React.Component {
   constructor() {
@@ -14,6 +16,10 @@ class Login extends React.Component {
       gravatarEmail: '',
       disabled: true,
     };
+  }
+
+  componentDidMount() {
+    this.handleClick();
   }
 
   handleChangeName = ({ target }) => {
@@ -49,12 +55,17 @@ class Login extends React.Component {
     }
   }
 
-  handleClick = () => {
+  handleClick = async () => {
     const { gravatarEmail, name, assertions, score } = this.state;
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     dispatch(getEmail(gravatarEmail));
     dispatch(saveInfos(name, assertions, score));
-    history.push('/homegame');
+
+    const objToken = await getTokenFromAPI();
+    const { token } = objToken;
+    dispatch(getToken(token));
+
+    localStorage.setItem('token', token);
   }
 
   render() {
@@ -91,14 +102,16 @@ class Login extends React.Component {
           </label>
         </section>
         <section>
-          <button
-            type="button"
-            disabled={ disabled }
-            data-testid="btn-play"
-            onClick={ this.handleClick }
-          >
-            Play
-          </button>
+          <Link to="/homegame">
+            <button
+              type="button"
+              disabled={ disabled }
+              data-testid="btn-play"
+              onClick={ this.handleClick }
+            >
+              Play
+            </button>
+          </Link>
         </section>
         <section>
           <Link to="/settings">
