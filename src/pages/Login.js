@@ -18,9 +18,7 @@ class Login extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.handleClick();
-  }
+
 
   handleChangeName = ({ target }) => {
     const { value } = target;
@@ -57,15 +55,15 @@ class Login extends React.Component {
 
   handleClick = async () => {
     const { gravatarEmail, name, assertions, score } = this.state;
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(getEmail(gravatarEmail));
     dispatch(saveInfos(name, assertions, score));
 
     const objToken = await getTokenFromAPI();
     /* const { token } = objToken; */
     dispatch(getToken(objToken));
-
-    localStorage.setItem('token', objToken);
+    localStorage.setItem('token', objToken.token);
+    history.push('/homegame')
   }
 
   render() {
@@ -102,7 +100,6 @@ class Login extends React.Component {
           </label>
         </section>
         <section>
-          <Link to="/homegame">
             <button
               type="button"
               disabled={ disabled }
@@ -111,7 +108,6 @@ class Login extends React.Component {
             >
               Play
             </button>
-          </Link>
         </section>
         <section>
           <Link to="/settings">
