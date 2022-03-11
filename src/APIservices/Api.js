@@ -6,12 +6,23 @@ export const getTokenFromAPI = async () => {
   return data;
 };
 
-export const getJokesFromAPI = async () => {
-  const ObjToken = await getJokesFromAPI();
-  const { token } = ObjToken;
-  const requestJoke = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
-  const ObjJokesAttributes = await requestJoke.json();
-  return ObjJokesAttributes;
+export const getQuestionsFromAPI = async (token) => {
+  const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+  const ObjQuestionsAttributes = await requestQuestions.json();
+  const { response_code, results } = ObjQuestionsAttributes;
+  if(response_code === 0) {
+    console.log('passou')
+     return results
+   }
+  if (response_code === 3) {
+    console.log('Npassou')
+    const ObjToken = await getTokenFromAPI();
+    const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${ObjToken.token}`);
+    const ObjQuestionsAttributes = await requestQuestions.json();
+    const { results } = ObjQuestionsAttributes;
+    return results;
+  }
 };
+
 
 export default connect()(getTokenFromAPI);
