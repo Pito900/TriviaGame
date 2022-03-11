@@ -62,10 +62,10 @@ class Login extends React.Component {
     dispatch(saveInfos(name, assertions, score));
 
     const objToken = await getTokenFromAPI();
-    const { token } = objToken;
-    dispatch(getToken(token));
+    /* const { token } = objToken; */
+    dispatch(getToken(objToken));
 
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', objToken);
   }
 
   render() {
