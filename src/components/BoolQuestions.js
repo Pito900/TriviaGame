@@ -1,37 +1,88 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+// minha ideia aqui foi fazer uma função que faz as comparações e chamá-la dentro de uma section
 
 class BoolQuestions extends React.Component {
   render() {
-      const {
-          category,
-          question,
-        //   type,
-        //   difficulty,
-          correct_answer,
-        //   incorrect_answers,
-      } = this.props
-    return (
-      <>
-        <h2 data-testid='question-category'> { category }</h2>
-        <h3 data-testid='question-text'>{ question }</h3>
-          
-        { correct_answer ? <div data-testid="answer-options" >
-            <button data-testid="correct-answer">True</button>
-            <button>False</button>
-        </div> : <div data-testid="answer-options" >
-            <button>True</button>
-            <button data-testid="correct-answer">False</button>
-        </div> }
-      </>
+    const {
+      category,
+      question,
+      correctAnswer,
+      incorrectAnswers,
+    } = this.props;
 
+    const answers = incorrectAnswers;
+    const index = answers.indexOf(`${incorrectAnswers}`);
+
+    isCorrect = () => {
+      if (correctAnswer === 'True') {
+        return (
+          <>
+            <h2
+              data-testid="question-category"
+            >
+              {' '}
+              {category}
+            </h2>
+            <h3
+              data-testid="question-text"
+            >
+              {question}
+            </h3>
+            <div data-testid="answer-options">
+              <button type="button" data-testid="correct-answer">Verdadeiro</button>
+              <button
+                type="button"
+                data-testid={ `wrong-answer-${index}` }
+              >
+                Falso
+              </button>
+            </div>
+          </>
+        );
+      }
+      if (correctAnswer === 'False') {
+        return (
+          <>
+            <h2
+              data-testid="question-category"
+            >
+              {' '}
+              {category}
+            </h2>
+            <h3
+              data-testid="question-text"
+            >
+              {question}
+            </h3>
+            <div data-testid="answer-options">
+              <button type="button" data-testid="correct-answer">Falso</button>
+              <button
+                type="button"
+                data-testid={ `wrong-answer-${index}` }
+              >
+                Verdadeiro
+              </button>
+            </div>
+          </>
+        );
+      }
+    };
+
+    return (
+      <section>
+        { this.isCorrect }
+      </section>
     );
   }
 }
 
 BoolQuestions.propTypes = {
-  dispatch: PropTypes.func,
+  category: PropTypes.string,
+  question: PropTypes.string,
+  correctAnswer: PropTypes.string,
+  incorrectAnswer: PropTypes.string,
 }.isRequired;
 
-export default connect()(BoolQuestions);
+export default BoolQuestions;

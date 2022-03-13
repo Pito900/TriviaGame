@@ -11,7 +11,6 @@ class HomeGame extends React.Component {
         <Header />
         <Questions />
       </>
-
     );
   }
 }

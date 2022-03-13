@@ -18,8 +18,6 @@ class Login extends React.Component {
     };
   }
 
-
-
   handleChangeName = ({ target }) => {
     const { value } = target;
     this.setState({
@@ -63,7 +61,7 @@ class Login extends React.Component {
     /* const { token } = objToken; */
     dispatch(getToken(objToken));
     localStorage.setItem('token', objToken.token);
-    history.push('/homegame')
+    history.push('/homegame');
   }
 
   render() {
@@ -100,14 +98,14 @@ class Login extends React.Component {
           </label>
         </section>
         <section>
-            <button
-              type="button"
-              disabled={ disabled }
-              data-testid="btn-play"
-              onClick={ this.handleClick }
-            >
-              Play
-            </button>
+          <button
+            type="button"
+            disabled={ disabled }
+            data-testid="btn-play"
+            onClick={ this.handleClick }
+          >
+            Play
+          </button>
         </section>
         <section>
           <Link to="/settings">
