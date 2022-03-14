@@ -10,7 +10,8 @@ class Questions extends React.Component {
     allQuestions: [],
     correctAnswer: '',
     disabledResponses: true,
-    time: 8,
+    nextDisabled: true,
+    time: 30,
   }
 
   componentDidMount() {
@@ -28,40 +29,36 @@ class Questions extends React.Component {
       question,
       allQuestions,
       correctAnswer,
+      nextDisabled: true,
       clicked: false,
     });
     this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-    this.wait5Secs();
+    this.waitSecs();
     this.countdown();
   }
 
-  wait5Secs = () => {
+  waitSecs = () => {
     this.setState({
       disabledResponses: true, // para dps do next ele começar true dnv e dps de 5 segundos ser false
     });
     const time5sec = 5000;
+    const time8sec = 30000;
     setTimeout(() => this.setState({
       disabledResponses: false,
     }), time5sec);
+    setTimeout(() => this.setState({
+      nextDisabled: false,
+      disabledResponses: true,
+    }), time8sec);
   }
 
   countdown = () => {
     const ONE_SECOND = 1000;
-    const secondsCountdown = setInterval(() => {
+    setInterval(() => {
       this.setState((state) => ({
         time: state.time - 1,
       }));
     }, ONE_SECOND);
-    this.clearCountdown(secondsCountdown);
-  }
-
-  clearCountdown = (interval) => {
-    if (interval < 0) {
-      clearInterval(interval);
-    } else {
-      const SECONDS = 8000;
-      setTimeout(() => clearInterval(interval), SECONDS);
-    }
   }
 
   nextQ = () => { // funcionalidade para passar para a proxima pergunta
@@ -82,10 +79,12 @@ class Questions extends React.Component {
         question,
         allQuestions,
         correctAnswer,
-        time: 8,
+        clicked: false,
+        nextDisabled: true,
+        time: 30,
       });
       this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-      this.wait5Secs();
+      this.waitSecs();
       this.countdown();
     });
   }
@@ -103,6 +102,7 @@ class Questions extends React.Component {
   clicked = () => {
     this.setState({
       clicked: true,
+      nextDisabled: false,
     });
   }
 
@@ -123,6 +123,7 @@ class Questions extends React.Component {
       clicked,
       disabledResponses,
       time,
+      nextDisabled,
     } = this.state;
     return (
       <>
@@ -159,12 +160,12 @@ class Questions extends React.Component {
           type="button"
           data-testid="btn-next"
           onClick={ this.nextQ }
-          // disabled={ isDisabled }
+          hidden={ nextDisabled }
         >
           Next
         </button>
         <div>
-          {time}
+          {time >= 0 ? time : 0}
         </div>
 
       </>
