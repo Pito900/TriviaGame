@@ -4,75 +4,77 @@ import PropTypes from 'prop-types';
 // minha ideia aqui foi fazer uma função que faz as comparações e chamá-la dentro de uma section
 
 class BoolQuestions extends React.Component {
-  render() {
+  isCrt = () => {
     const {
       category,
       question,
       correctAnswer,
       incorrectAnswers,
     } = this.props;
-
     const answers = incorrectAnswers;
     const index = answers.indexOf(`${incorrectAnswers}`);
+    if (correctAnswer === 'True') {
+      return (
+        <>
+          <h2
+            data-testid="question-category"
+          >
+            {' '}
+            {category}
+          </h2>
+          <h3
+            data-testid="question-text"
+          >
+            {question}
+          </h3>
+          <div data-testid="answer-options">
+            <button type="button" data-testid="correct-answer">Verdadeiro</button>
+            <button
+              type="button"
+              data-testid={ `wrong-answer-${index}` }
+            >
+              Falso
+            </button>
+          </div>
+        </>
+      );
+    }
+    if (correctAnswer === 'False') {
+      return (
+        <>
+          <h2
+            data-testid="question-category"
+          >
+            {' '}
+            {category}
+          </h2>
+          <h3
+            data-testid="question-text"
+          >
+            {question}
+          </h3>
+          <div data-testid="answer-options">
+            <button type="button" data-testid="correct-answer">Falso</button>
+            <button
+              type="button"
+              data-testid={ `wrong-answer-${index}` }
+            >
+              Verdadeiro
+            </button>
+          </div>
+        </>
+      );
+    }
+  };
 
-    isCorrect = () => {
-      if (correctAnswer === 'True') {
-        return (
-          <>
-            <h2
-              data-testid="question-category"
-            >
-              {' '}
-              {category}
-            </h2>
-            <h3
-              data-testid="question-text"
-            >
-              {question}
-            </h3>
-            <div data-testid="answer-options">
-              <button type="button" data-testid="correct-answer">Verdadeiro</button>
-              <button
-                type="button"
-                data-testid={ `wrong-answer-${index}` }
-              >
-                Falso
-              </button>
-            </div>
-          </>
-        );
-      }
-      if (correctAnswer === 'False') {
-        return (
-          <>
-            <h2
-              data-testid="question-category"
-            >
-              {' '}
-              {category}
-            </h2>
-            <h3
-              data-testid="question-text"
-            >
-              {question}
-            </h3>
-            <div data-testid="answer-options">
-              <button type="button" data-testid="correct-answer">Falso</button>
-              <button
-                type="button"
-                data-testid={ `wrong-answer-${index}` }
-              >
-                Verdadeiro
-              </button>
-            </div>
-          </>
-        );
-      }
-    };
-
+  render() {
+    const { incorrectAnswers } = this.props;
+    const answers = incorrectAnswers;
+    const index = answers.indexOf(`${incorrectAnswers}`);
+    console.log(index)
     return (
       <section>
-        { this.isCorrect }
+        { this.isCrt() }
       </section>
     );
   }

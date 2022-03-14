@@ -2,9 +2,9 @@ import {
   GET_QUESTIONS,
 } from './actionTypes';
 
-export const questions = (results) => ({
+export const questionsAc = (results) => ({
   type: GET_QUESTIONS,
   results,
 });
 
-export default questions;
+export default questionsAc;

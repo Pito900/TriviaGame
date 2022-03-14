@@ -9,20 +9,21 @@ export const getTokenFromAPI = async () => {
 export const getQuestionsFromAPI = async (token) => {
   const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const ObjQuestionsAttributes = await requestQuestions.json();
-  const { response_code, results } = ObjQuestionsAttributes;
-  const RESPONSE_0 = 0;
-  const RESPONSE_3 = 3;
-  if (response_code === RESPONSE_0) {
+  const { results } = ObjQuestionsAttributes;
+  console.log('passou');
+  const RESPONSE_0 = 0; // no magic Number
+  const RESPONSE_3 = 3;// no magic Number
+  if (ObjQuestionsAttributes.response_code === RESPONSE_0) {
     return results;
   }
 
-  if (response_code === RESPONSE_3) {
+  if (ObjQuestionsAttributes.response_code === RESPONSE_3) {
     console.log('Npassou');
     const ObjToken = await getTokenFromAPI();
-    const requestQuestions = await fetch(`https://opentdb.com/api.php?amount=5&token=${ObjToken.token}`);
-    const ObjQuestionsAttributes = await requestQuestions.json();
-    const { results } = ObjQuestionsAttributes;
-    return results;
+    const requestQuestions2 = await fetch(`https://opentdb.com/api.php?amount=5&token=${ObjToken.token}`);
+    const ObjQuestionsAttributes2 = await requestQuestions2.json();
+    // const { results } = ObjQuestionsAttributes;
+    return ObjQuestionsAttributes2.results;
   }
 };
 
