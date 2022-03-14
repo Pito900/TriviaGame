@@ -54,7 +54,7 @@ class Questions extends React.Component {
 
   countdown = () => {
     const ONE_SECOND = 1000;
-    setInterval(() => {
+    this.x = setInterval(() => { // Desta forma passamos o retorno do setInterval pelo objeto this. para a função nextQ
       this.setState((state) => ({
         time: state.time - 1,
       }));
@@ -62,6 +62,7 @@ class Questions extends React.Component {
   }
 
   nextQ = () => { // funcionalidade para passar para a proxima pergunta
+    clearInterval(this.x);
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
