@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getEmail, saveInfos } from '../redux/actions/player';
-import { getTokenFromAPI } from '../APIservices/Api';
+import { getTokenFromAPI, getQuestionsFromAPI } from '../APIservices/Api';
 import { getToken } from '../redux/actions/token';
+import { questionsAc } from '../redux/actions/questions';
 
 class Login extends React.Component {
   constructor() {
@@ -61,6 +62,8 @@ class Login extends React.Component {
     /* const { token } = objToken; */
     dispatch(getToken(objToken));
     localStorage.setItem('token', objToken.token);
+    const results = await getQuestionsFromAPI(objToken.token);
+    dispatch(questionsAc(results));
     history.push('/homegame');
   }
 
