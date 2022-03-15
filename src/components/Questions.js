@@ -63,6 +63,7 @@ class Questions extends React.Component {
 
   nextQ = () => { // funcionalidade para passar para a proxima pergunta
     clearInterval(this.x);
+
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
