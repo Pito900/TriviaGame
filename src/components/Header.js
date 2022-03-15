@@ -22,8 +22,8 @@ class Header extends React.Component {
     return (
       <section>
         <img src={ this.getImgFromAPI() } alt="" data-testid="header-profile-picture" />
-        <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">{ score }</p>
+        <p data-testid="header-player-name">{name}</p>
+        <p data-testid="header-score">{score}</p>
       </section>
     );
   }
