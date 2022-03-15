@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { headerInfos } from '../redux/actions/ranking';
+
 class Questions extends React.Component {
   state ={
     questionNumber: 0,
@@ -11,6 +13,8 @@ class Questions extends React.Component {
     correctAnswer: '',
     disabledResponses: true,
     nextDisabled: true,
+    difficulty: '',
+    scoreUpdate: 0,
     time: 30,
   }
 
@@ -20,6 +24,7 @@ class Questions extends React.Component {
     const {
       category,
       question,
+      difficulty,
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers,
     } = results[0];
@@ -29,6 +34,7 @@ class Questions extends React.Component {
       question,
       allQuestions,
       correctAnswer,
+      difficulty,
       nextDisabled: true,
       clicked: false,
     });
@@ -71,6 +77,7 @@ class Questions extends React.Component {
       const {
         category,
         question,
+        difficulty,
         correct_answer: correctAnswer,
         incorrect_answers: incorrectAnswers,
       } = results[questionNumber];
@@ -80,6 +87,7 @@ class Questions extends React.Component {
         question,
         allQuestions,
         correctAnswer,
+        difficulty,
         clicked: false,
         nextDisabled: true,
         time: 30,
@@ -100,11 +108,31 @@ class Questions extends React.Component {
     });
   }
 
-  clicked = () => {
+  clicked = (item) => {
     this.setState({
       clicked: true,
       nextDisabled: false,
     });
+    const { time, difficulty, correctAnswer } = this.state;
+    if (item === correctAnswer) {
+      const POINTS = 10;
+      const DIFFICULTYPOINTS = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+      };
+      const score = POINTS + (time * DIFFICULTYPOINTS[difficulty]);
+      const { dispatch } = this.props;
+      this.setState(
+        (previousState) => ({
+          scoreUpdate: previousState.scoreUpdate + score,
+        }), () => {
+          const { scoreUpdate } = this.state;
+          console.log(scoreUpdate);
+          dispatch(headerInfos(null, scoreUpdate, null));
+        },
+      );
+    }
   }
 
   responding = (item) => {
@@ -148,7 +176,7 @@ class Questions extends React.Component {
                 : (`wrong-answer-${
                   allQuestions.indexOf(`${item}`)
                 }`) }
-              onClick={ this.clicked }
+              onClick={ () => this.clicked(item) }
               style={ clicked ? this.responding(item)
                 : { } }
               disabled={ disabledResponses }

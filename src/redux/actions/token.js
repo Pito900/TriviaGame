@@ -7,4 +7,4 @@ export const getToken = (payload) => ({
   payload,
 });
 
-// export default getToken;
+export default getToken;
