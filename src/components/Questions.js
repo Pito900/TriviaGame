@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
+import { withRouter } from 'react-router-dom';
 import { headerInfos } from '../redux/actions/ranking';
 
 class Questions extends React.Component {
@@ -20,27 +20,32 @@ class Questions extends React.Component {
 
   componentDidMount() {
   // coloquei isso aqui para o estado inicial das perguntas ser o result[0]
-    const { questions: { results } } = this.props;
-    const {
-      category,
-      question,
-      difficulty,
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
-    } = results[0];
-    const allQuestions = [correctAnswer, incorrectAnswers];
-    this.setState({
-      category,
-      question,
-      allQuestions,
-      correctAnswer,
-      difficulty,
-      nextDisabled: true,
-      clicked: false,
-    });
-    this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-    this.waitSecs();
-    this.countdown();
+    const { questions: { results }, history } = this.props;
+
+    if (results.length > 0) {
+      const {
+        category,
+        question,
+        difficulty,
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      } = results[0];
+      const allQuestions = [correctAnswer, incorrectAnswers];
+      this.setState({
+        category,
+        question,
+        allQuestions,
+        correctAnswer,
+        difficulty,
+        nextDisabled: true,
+        clicked: false,
+      });
+      this.randomVectorQuestions(incorrectAnswers, correctAnswer);
+      this.waitSecs();
+      this.countdown();
+    } else {
+      history.push('/');
+    }
   }
 
   waitSecs = () => {
@@ -69,11 +74,17 @@ class Questions extends React.Component {
 
   nextQ = () => { // funcionalidade para passar para a proxima pergunta
     clearInterval(this.x);
+
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
       const { questions: { results } } = this.props;
+      const { history } = this.props;
       const { questionNumber } = this.state;
+      if (questionNumber === results.length - 1) {
+        history.push('/feedback');
+        return;
+      }
       const {
         category,
         question,
@@ -214,4 +225,4 @@ const mapStateToProps = ({ token, questions }) => ({
   questions,
 });
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps)(withRouter(Questions));
