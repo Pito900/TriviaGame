@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import md5 from 'crypto-js/md5';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getEmail, saveInfos } from '../redux/actions/player';
 import { getTokenFromAPI, getQuestionsFromAPI } from '../APIservices/Api';
 import { getToken } from '../redux/actions/token';
 import { questionsAc } from '../redux/actions/questions';
+import { headerInfos } from '../redux/actions/ranking';
 
 class Login extends React.Component {
   constructor() {
@@ -57,9 +59,10 @@ class Login extends React.Component {
     const { dispatch, history } = this.props;
     dispatch(getEmail(gravatarEmail));
     dispatch(saveInfos(name, assertions, score));
-
+    const hashGerada = md5(gravatarEmail).toString();
+    const URL = `https://www.gravatar.com/avatar/${hashGerada}`; // daqui temos um objeto
+    dispatch(headerInfos(name, score, URL)); // colocamos a url q pegamos como sendo uma picture
     const objToken = await getTokenFromAPI();
-    /* const { token } = objToken; */
     dispatch(getToken(objToken));
     localStorage.setItem('token', objToken.token);
     const results = await getQuestionsFromAPI(objToken.token);
