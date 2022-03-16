@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { headerInfos } from '../redux/actions/ranking';
-import { updateScore } from '../redux/actions/player';
+import { saveInfos } from '../redux/actions/player';
 
 class Questions extends React.Component {
   state ={
@@ -15,6 +15,7 @@ class Questions extends React.Component {
     disabledResponses: true,
     nextDisabled: true,
     difficulty: '',
+    assertions: 0,
     scoreUpdate: 0,
     time: 30,
   }
@@ -137,12 +138,12 @@ class Questions extends React.Component {
       const { dispatch } = this.props;
       this.setState(
         (previousState) => ({
+          assertions: previousState.assertions + 1,
           scoreUpdate: previousState.scoreUpdate + score,
         }), () => {
-          const { scoreUpdate } = this.state;
-          console.log(scoreUpdate);
+          const { scoreUpdate, assertions } = this.state;
           dispatch(headerInfos(null, scoreUpdate, null));
-          dispatch(updateScore(scoreUpdate));
+          dispatch(saveInfos(null, assertions, scoreUpdate));
         },
       );
     }
