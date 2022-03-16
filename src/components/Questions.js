@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { headerInfos } from '../redux/actions/ranking';
 
 class Questions extends React.Component {
   state ={
@@ -11,30 +13,39 @@ class Questions extends React.Component {
     correctAnswer: '',
     disabledResponses: true,
     nextDisabled: true,
+    difficulty: '',
+    scoreUpdate: 0,
     time: 30,
   }
 
   componentDidMount() {
   // coloquei isso aqui para o estado inicial das perguntas ser o result[0]
-    const { questions: { results } } = this.props;
-    const {
-      category,
-      question,
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
-    } = results[0];
-    const allQuestions = [correctAnswer, incorrectAnswers];
-    this.setState({
-      category,
-      question,
-      allQuestions,
-      correctAnswer,
-      nextDisabled: true,
-      clicked: false,
-    });
-    this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-    this.waitSecs();
-    this.countdown();
+    const { questions: { results }, history } = this.props;
+
+    if (results.length > 0) {
+      const {
+        category,
+        question,
+        difficulty,
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      } = results[0];
+      const allQuestions = [correctAnswer, incorrectAnswers];
+      this.setState({
+        category,
+        question,
+        allQuestions,
+        correctAnswer,
+        difficulty,
+        nextDisabled: true,
+        clicked: false,
+      });
+      this.randomVectorQuestions(incorrectAnswers, correctAnswer);
+      this.waitSecs();
+      this.countdown();
+    } else {
+      history.push('/');
+    }
   }
 
   waitSecs = () => {
@@ -63,14 +74,21 @@ class Questions extends React.Component {
 
   nextQ = () => { // funcionalidade para passar para a proxima pergunta
     clearInterval(this.x);
+
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
       const { questions: { results } } = this.props;
+      const { history } = this.props;
       const { questionNumber } = this.state;
+      if (questionNumber === results.length - 1) {
+        history.push('/feedback');
+        return;
+      }
       const {
         category,
         question,
+        difficulty,
         correct_answer: correctAnswer,
         incorrect_answers: incorrectAnswers,
       } = results[questionNumber];
@@ -80,6 +98,7 @@ class Questions extends React.Component {
         question,
         allQuestions,
         correctAnswer,
+        difficulty,
         clicked: false,
         nextDisabled: true,
         time: 30,
@@ -100,11 +119,31 @@ class Questions extends React.Component {
     });
   }
 
-  clicked = () => {
+  clicked = (item) => {
     this.setState({
       clicked: true,
       nextDisabled: false,
     });
+    const { time, difficulty, correctAnswer } = this.state;
+    if (item === correctAnswer) {
+      const POINTS = 10;
+      const DIFFICULTYPOINTS = {
+        easy: 1,
+        medium: 2,
+        hard: 3,
+      };
+      const score = POINTS + (time * DIFFICULTYPOINTS[difficulty]);
+      const { dispatch } = this.props;
+      this.setState(
+        (previousState) => ({
+          scoreUpdate: previousState.scoreUpdate + score,
+        }), () => {
+          const { scoreUpdate } = this.state;
+          console.log(scoreUpdate);
+          dispatch(headerInfos(null, scoreUpdate, null));
+        },
+      );
+    }
   }
 
   responding = (item) => {
@@ -148,7 +187,7 @@ class Questions extends React.Component {
                 : (`wrong-answer-${
                   allQuestions.indexOf(`${item}`)
                 }`) }
-              onClick={ this.clicked }
+              onClick={ () => this.clicked(item) }
               style={ clicked ? this.responding(item)
                 : { } }
               disabled={ disabledResponses }
@@ -186,4 +225,4 @@ const mapStateToProps = ({ token, questions }) => ({
   questions,
 });
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps)(withRouter(Questions));
