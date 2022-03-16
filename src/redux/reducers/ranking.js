@@ -6,12 +6,16 @@ const INITIAL_STATE = [
 
 const ranking = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'GET_PICTURE_SCORE_NAME':
+  case 'GET_PICTURE_NAME':
     return {
       ...state,
       name: action.name,
-      score: action.score,
       picture: action.picture,
+    };
+  case 'GET_SCORE':
+    return {
+      ...state,
+      score: action.score,
     };
   default:
     return state;

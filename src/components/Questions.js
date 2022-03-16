@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { headerScore } from '../redux/actions/ranking';
+import { saveInfosPlayer } from '../redux/actions/player';
 import { withRouter } from 'react-router-dom';
 import { headerInfos } from '../redux/actions/ranking';
-import { saveInfos } from '../redux/actions/player';
 
 class Questions extends React.Component {
   state ={
@@ -16,6 +17,8 @@ class Questions extends React.Component {
     nextDisabled: true,
     difficulty: '',
     assertions: 0,
+    scoreUpdate: 0,
+    maxQuestions: 4,
     scoreUpdate: 0,
     time: 30,
   }
@@ -74,40 +77,42 @@ class Questions extends React.Component {
     }, ONE_SECOND);
   }
 
-  nextQ = () => { // funcionalidade para passar para a proxima pergunta
+  nextQ = async () => { // funcionalidade para passar para a proxima pergunta
+    console.log('props do question', this.props);
     clearInterval(this.x);
 
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
-      const { questions: { results } } = this.props;
-      const { history } = this.props;
-      const { questionNumber } = this.state;
-      if (questionNumber === results.length - 1) {
+      const { questionNumber, maxQuestions } = this.state;
+      if (questionNumber > maxQuestions) {
+        const { history } = this.props;
         history.push('/feedback');
-        return;
       }
-      const {
-        category,
-        question,
-        difficulty,
-        correct_answer: correctAnswer,
-        incorrect_answers: incorrectAnswers,
-      } = results[questionNumber];
-      const allQuestions = [correctAnswer, incorrectAnswers];
-      this.setState({
-        category,
-        question,
-        allQuestions,
-        correctAnswer,
-        difficulty,
-        clicked: false,
-        nextDisabled: true,
-        time: 30,
-      });
-      this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-      this.waitSecs();
-      this.countdown();
+      if (questionNumber <= maxQuestions) {
+        const { questions: { results } } = this.props;
+        const {
+          category,
+          question,
+          difficulty,
+          correct_answer: correctAnswer,
+          incorrect_answers: incorrectAnswers,
+        } = results[questionNumber];
+        const allQuestions = [correctAnswer, incorrectAnswers];
+        this.setState({
+          category,
+          question,
+          allQuestions,
+          correctAnswer,
+          difficulty,
+          clicked: false,
+          nextDisabled: true,
+          time: 30,
+        });
+        this.randomVectorQuestions(incorrectAnswers, correctAnswer);
+        this.waitSecs();
+        this.countdown();
+      }
     });
   }
   // para fazer o seguinte passo utilizamos https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=random()%20*%20(i%20%2B%201,utilizando%20a%20sintaxe%20Destructuring%20Assignment%20.
@@ -142,8 +147,8 @@ class Questions extends React.Component {
           scoreUpdate: previousState.scoreUpdate + score,
         }), () => {
           const { scoreUpdate, assertions } = this.state;
-          dispatch(headerInfos(null, scoreUpdate, null));
-          dispatch(saveInfos(null, assertions, scoreUpdate));
+          dispatch(headerScore(scoreUpdate));
+          dispatch(saveInfosPlayer(assertions, scoreUpdate));
         },
       );
     }
@@ -166,7 +171,9 @@ class Questions extends React.Component {
       clicked,
       disabledResponses,
       time,
+      //  questionNumber,
       nextDisabled,
+    //  maxQuestions,
     } = this.state;
     return (
       <>
@@ -199,6 +206,18 @@ class Questions extends React.Component {
             </button>
           ))}
         </section>
+        {/* { (questionNumber === maxQuestions)
+          ? <Link to="/feedback">
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.nextQ }
+              hidden={ nextDisabled }
+            >
+              Next
+            </button>
+          </Link>
+          :  */}
         <button
           type="button"
           data-testid="btn-next"
@@ -223,8 +242,7 @@ Questions.propTypes = {
   question: PropTypes.string,
 }.isRequired;
 
-const mapStateToProps = ({ token, questions }) => ({
-  token,
+const mapStateToProps = ({ questions }) => ({
   questions,
 });
 
