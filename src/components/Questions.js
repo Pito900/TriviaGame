@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { headerInfos } from '../redux/actions/ranking';
+import { updateScore } from '../redux/actions/player';
 
 class Questions extends React.Component {
   state ={
@@ -141,6 +142,7 @@ class Questions extends React.Component {
           const { scoreUpdate } = this.state;
           console.log(scoreUpdate);
           dispatch(headerInfos(null, scoreUpdate, null));
+          dispatch(updateScore(scoreUpdate));
         },
       );
     }
