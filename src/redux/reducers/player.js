@@ -7,13 +7,13 @@ const INITIAL_STATE = {
 
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'GRAVATAR_EMAIL':
+  case 'GRAVATAR_NAME_EMAIL':
     return { ...state,
       gravatarEmail: action.gravatarEmail,
-    };
-  case 'SAVE_INFOS':
-    return { ...state,
       name: action.name,
+    };
+  case 'SAVE_INFOS_PLAYER':
+    return { ...state,
       score: action.score,
       assertions: action.assertions,
     };

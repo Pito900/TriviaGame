@@ -1,16 +1,16 @@
 import {
-  SAVE_INFOS,
-  GRAVATAR_EMAIL,
+  SAVE_INFOS_PLAYER,
+  GRAVATAR_NAME_EMAIL,
 } from './actionTypes';
 
-export const saveInfos = (name, assertions, score) => ({
-  type: SAVE_INFOS,
-  name,
+export const saveInfosPlayer = (assertions, score) => ({
+  type: SAVE_INFOS_PLAYER,
   assertions,
   score,
 });
 
-export const getEmail = (gravatarEmail) => ({
-  type: GRAVATAR_EMAIL,
+export const getNameEmail = (gravatarEmail, name) => ({
+  type: GRAVATAR_NAME_EMAIL,
   gravatarEmail,
+  name,
 });

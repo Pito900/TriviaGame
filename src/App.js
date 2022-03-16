@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Route,
   Switch,
   BrowserRouter,
+  Route,
 } from 'react-router-dom';
 import './App.css';
 import logo from './trivia.png';
@@ -18,9 +18,9 @@ class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Login } />
+            <Route path="/feedback" component={ Feedback } />
             <Route path="/homegame" component={ HomeGame } />
             <Route path="/settings" component={ Settings } />
-            <Route path="/feedback" component={ Feedback } />
           </Switch>
         </BrowserRouter>
         <div className="App">

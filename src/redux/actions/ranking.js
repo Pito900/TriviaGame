@@ -1,12 +1,15 @@
 import {
-  GET_PICTURE_SCORE_NAME,
+  GET_PICTURE_NAME,
+  GET_SCORE,
 } from './actionTypes';
 
-export const headerInfos = (name, score, picture) => ({
-  type: GET_PICTURE_SCORE_NAME,
+export const headerInfos = (name, picture) => ({
+  type: GET_PICTURE_NAME,
   name,
-  score,
   picture,
 });
 
-export default headerInfos;
+export const headerScore = (score) => ({
+  type: GET_SCORE,
+  score,
+});

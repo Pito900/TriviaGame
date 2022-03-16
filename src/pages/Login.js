@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getEmail, saveInfos } from '../redux/actions/player';
+import { saveInfosPlayer, getNameEmail } from '../redux/actions/player';
 import { getTokenFromAPI, getQuestionsFromAPI } from '../APIservices/Api';
 import { getToken } from '../redux/actions/token';
 import { questionsAc } from '../redux/actions/questions';
-import { headerInfos } from '../redux/actions/ranking';
+import { headerInfos, headerScore } from '../redux/actions/ranking';
 
 class Login extends React.Component {
   constructor() {
@@ -57,11 +57,13 @@ class Login extends React.Component {
   handleClick = async () => {
     const { gravatarEmail, name, assertions, score } = this.state;
     const { dispatch, history } = this.props;
-    dispatch(getEmail(gravatarEmail));
-    dispatch(saveInfos(name, assertions, score));
+    console.log('props do login', this.props);
+    dispatch(getNameEmail(gravatarEmail, name));
+    dispatch(saveInfosPlayer(assertions, score));
     const hashGerada = md5(gravatarEmail).toString();
     const URL = `https://www.gravatar.com/avatar/${hashGerada}`; // daqui temos um objeto
-    dispatch(headerInfos(name, score, URL)); // colocamos a url q pegamos como sendo uma picture
+    dispatch(headerInfos(name, URL)); // colocamos a url q pegamos como sendo uma picture
+    dispatch(headerScore(score));
     const objToken = await getTokenFromAPI();
     dispatch(getToken(objToken));
     localStorage.setItem('token', objToken.token);
