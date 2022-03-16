@@ -9,7 +9,6 @@ class Ranking extends React.Component {
     }
 
     // criar um array, passar o map formando o item da lista li com as infos (18)
-
     render() {
       return (
         <>

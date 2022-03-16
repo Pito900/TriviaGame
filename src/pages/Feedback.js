@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
@@ -8,6 +9,7 @@ class Feedback extends React.Component {
     const { history } = this.props;
     history.push('/ranking');
   }
+
 
   handleClickPlay = () => {
     const { history } = this.props;
@@ -48,6 +50,7 @@ class Feedback extends React.Component {
         >
           Ranking
         </button>
+
         <button
           type="button"
           onClick={ this.handleClickPlay }
