@@ -8,13 +8,12 @@ class Ranking extends React.Component {
       history.push('/homegame');
     }
 
-    // criar um array, passar o map formando o item da lista li com as infos
-
+    // criar um array, passar o map formando o item da lista li com as infos (18)
     render() {
       return (
         <>
-          <h1 data-testid="ranking-title">Ranking</h1>
           <section>
+            <h1 data-testid="ranking-title">Ranking</h1>
           </section>
           <button
             type="button"
