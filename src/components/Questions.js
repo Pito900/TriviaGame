@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 import { headerScore } from '../redux/actions/ranking';
 import { saveInfosPlayer } from '../redux/actions/player';
-
+import { withRouter } from 'react-router-dom';
 import { headerInfos } from '../redux/actions/ranking';
 
 class Questions extends React.Component {
@@ -17,39 +16,41 @@ class Questions extends React.Component {
     disabledResponses: true,
     nextDisabled: true,
     difficulty: '',
-<<<<<<< Updated upstream
     assertions: 0,
     scoreUpdate: 0,
     maxQuestions: 4,
-=======
     scoreUpdate: 0,
->>>>>>> Stashed changes
     time: 30,
   }
 
   componentDidMount() {
   // coloquei isso aqui para o estado inicial das perguntas ser o result[0]
-    const { questions: { results } } = this.props;
-    const {
-      category,
-      question,
-      difficulty,
-      correct_answer: correctAnswer,
-      incorrect_answers: incorrectAnswers,
-    } = results[0];
-    const allQuestions = [correctAnswer, incorrectAnswers];
-    this.setState({
-      category,
-      question,
-      allQuestions,
-      correctAnswer,
-      difficulty,
-      nextDisabled: true,
-      clicked: false,
-    });
-    this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-    this.waitSecs();
-    this.countdown();
+    const { questions: { results }, history } = this.props;
+
+    if (results.length > 0) {
+      const {
+        category,
+        question,
+        difficulty,
+        correct_answer: correctAnswer,
+        incorrect_answers: incorrectAnswers,
+      } = results[0];
+      const allQuestions = [correctAnswer, incorrectAnswers];
+      this.setState({
+        category,
+        question,
+        allQuestions,
+        correctAnswer,
+        difficulty,
+        nextDisabled: true,
+        clicked: false,
+      });
+      this.randomVectorQuestions(incorrectAnswers, correctAnswer);
+      this.waitSecs();
+      this.countdown();
+    } else {
+      history.push('/');
+    }
   }
 
   waitSecs = () => {
@@ -79,10 +80,10 @@ class Questions extends React.Component {
   nextQ = async () => { // funcionalidade para passar para a proxima pergunta
     console.log('props do question', this.props);
     clearInterval(this.x);
+
     this.setState((prevState) => ({
       questionNumber: prevState.questionNumber + 1,
     }), () => {
-<<<<<<< Updated upstream
       const { questionNumber, maxQuestions } = this.state;
       if (questionNumber > maxQuestions) {
         const { history } = this.props;
@@ -112,31 +113,6 @@ class Questions extends React.Component {
         this.waitSecs();
         this.countdown();
       }
-=======
-      const { questions: { results } } = this.props;
-      const { questionNumber } = this.state;
-      const {
-        category,
-        question,
-        difficulty,
-        correct_answer: correctAnswer,
-        incorrect_answers: incorrectAnswers,
-      } = results[questionNumber];
-      const allQuestions = [correctAnswer, incorrectAnswers];
-      this.setState({
-        category,
-        question,
-        allQuestions,
-        correctAnswer,
-        difficulty,
-        clicked: false,
-        nextDisabled: true,
-        time: 30,
-      });
-      this.randomVectorQuestions(incorrectAnswers, correctAnswer);
-      this.waitSecs();
-      this.countdown();
->>>>>>> Stashed changes
     });
   }
   // para fazer o seguinte passo utilizamos https://www.delftstack.com/pt/howto/javascript/shuffle-array-javascript/#:~:text=random()%20*%20(i%20%2B%201,utilizando%20a%20sintaxe%20Destructuring%20Assignment%20.
@@ -167,20 +143,12 @@ class Questions extends React.Component {
       const { dispatch } = this.props;
       this.setState(
         (previousState) => ({
-<<<<<<< Updated upstream
           assertions: previousState.assertions + 1,
           scoreUpdate: previousState.scoreUpdate + score,
         }), () => {
           const { scoreUpdate, assertions } = this.state;
           dispatch(headerScore(scoreUpdate));
           dispatch(saveInfosPlayer(assertions, scoreUpdate));
-=======
-          scoreUpdate: previousState.scoreUpdate + score,
-        }), () => {
-          const { scoreUpdate } = this.state;
-          console.log(scoreUpdate);
-          dispatch(headerInfos(null, scoreUpdate, null));
->>>>>>> Stashed changes
         },
       );
     }
@@ -278,4 +246,4 @@ const mapStateToProps = ({ questions }) => ({
   questions,
 });
 
-export default connect(mapStateToProps)(Questions);
+export default connect(mapStateToProps)(withRouter(Questions));

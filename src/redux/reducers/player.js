@@ -1,3 +1,5 @@
+import { UPDATE_SCORE } from '../actions/actionTypes';
+
 const INITIAL_STATE = {
   name: '',
   assertions: 0,
@@ -17,6 +19,8 @@ const player = (state = INITIAL_STATE, action) => {
       score: action.score,
       assertions: action.assertions,
     };
+  case UPDATE_SCORE:
+    return { ...state, score: action.score };
   default:
     return state;
   }

@@ -5,3 +5,4 @@ export const GET_PICTURE_NAME = 'GET_PICTURE_NAME';
 export const GET_SCORE = 'GET_SCORE';
 export const FETCH_API = 'FETCH_API';
 export const GET_QUESTIONS = 'GET_QUESTIONS';
+export const UPDATE_SCORE = 'UPDATE_SCORE';
