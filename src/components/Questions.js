@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { headerScore } from '../redux/actions/ranking';
 import { saveInfosPlayer } from '../redux/actions/player';
-import { withRouter } from 'react-router-dom';
-import { headerInfos } from '../redux/actions/ranking';
 
 class Questions extends React.Component {
   state ={
@@ -19,7 +18,6 @@ class Questions extends React.Component {
     assertions: 0,
     scoreUpdate: 0,
     maxQuestions: 4,
-    scoreUpdate: 0,
     time: 30,
   }
 
