@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { headerScore } from '../redux/actions/ranking';
 import { saveInfosPlayer } from '../redux/actions/player';
 
@@ -75,7 +74,7 @@ class Questions extends React.Component {
     }, ONE_SECOND);
   }
 
-  nextQ = async () => { // funcionalidade para passar para a proxima pergunta
+  nextQ = () => { // funcionalidade para passar para a proxima pergunta
     console.log('props do question', this.props);
     clearInterval(this.x);
 
@@ -204,18 +203,6 @@ class Questions extends React.Component {
             </button>
           ))}
         </section>
-        {/* { (questionNumber === maxQuestions)
-          ? <Link to="/feedback">
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.nextQ }
-              hidden={ nextDisabled }
-            >
-              Next
-            </button>
-          </Link>
-          :  */}
         <button
           type="button"
           data-testid="btn-next"
@@ -244,4 +231,4 @@ const mapStateToProps = ({ questions }) => ({
   questions,
 });
 
-export default connect(mapStateToProps)(withRouter(Questions));
+export default connect(mapStateToProps)(Questions);

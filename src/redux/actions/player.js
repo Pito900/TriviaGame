@@ -14,8 +14,3 @@ export const getNameEmail = (gravatarEmail, name) => ({
   gravatarEmail,
   name,
 });
-
-export const updateScore = (score) => ({
-  type: UPDATE_SCORE,
-  score,
-});
