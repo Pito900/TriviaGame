@@ -12,7 +12,7 @@ class Feedback extends React.Component {
 
   handleClickPlay = () => {
     const { history } = this.props;
-    history.push('/homegame');
+    history.push('/');
   }
 
   render() {
@@ -30,22 +30,16 @@ class Feedback extends React.Component {
         </section>
         <section>
           <h4 data-testid="feedback-total-score">
-            Você fez
-            {' '}
             {score}
-            {' '}
-            pontos
           </h4>
           <h4 data-testid="feedback-total-question">
-            Total de acertos
-            {' '}
             {assertions}
           </h4>
         </section>
         <button
           type="button"
           onClick={ this.handleClick }
-          datatestid="btn-ranking"
+          data-testid="btn-ranking"
         >
           Ranking
         </button>

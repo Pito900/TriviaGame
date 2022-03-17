@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class Ranking extends React.Component {
     handleClick = () => {
       const { history } = this.props;
-      history.push('/homegame');
+      history.push('/');
     }
 
     // criar um array, passar o map formando o item da lista li com as infos (18)
@@ -18,7 +18,7 @@ class Ranking extends React.Component {
           <button
             type="button"
             onClick={ this.handleClick }
-            datatestid="btn-go-home"
+            data-testid="btn-go-home"
           >
             Login
           </button>
