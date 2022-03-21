@@ -8,6 +8,8 @@ import { getTokenFromAPI, getQuestionsFromAPI } from '../APIservices/Api';
 import { getToken } from '../redux/actions/token';
 import { questionsAc } from '../redux/actions/questions';
 import { headerInfos, headerScore } from '../redux/actions/ranking';
+import logo from '../trivia.png';
+import '../CSS/login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -79,9 +81,9 @@ class Login extends React.Component {
       gravatarEmail,
     } = this.state;
     return (
-      <>
-        <h3>Login</h3>
-        <section>
+      <main>
+        <h3 className="Login-title">LOGIN</h3>
+        <section className="Inputs">
           <label htmlFor="nome">
             <input
               type="text"
@@ -92,8 +94,8 @@ class Login extends React.Component {
               data-testid="input-player-name"
             />
           </label>
-        </section>
-        <section>
+          {/* </section>
+        <section> */}
           <label htmlFor="email">
             <input
               type="text"
@@ -105,7 +107,7 @@ class Login extends React.Component {
             />
           </label>
         </section>
-        <section>
+        <section className="Buttons">
           <button
             type="button"
             disabled={ disabled }
@@ -114,8 +116,8 @@ class Login extends React.Component {
           >
             Play
           </button>
-        </section>
-        <section>
+          {/* </section>
+        <section> */}
           <Link to="/settings">
             <button
               type="button"
@@ -125,7 +127,12 @@ class Login extends React.Component {
             </button>
           </Link>
         </section>
-      </>
+        <div className="App">
+          <header className="App-header">
+            <img src={ logo } className="App-logo" alt="logo" />
+          </header>
+        </div>
+      </main>
     );
   }
 }
