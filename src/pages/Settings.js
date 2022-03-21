@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
-import '../Css/Settings.css';
+import '../CSS/settings.css';
 
 class Settings extends React.Component {
   render() {

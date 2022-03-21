@@ -1,6 +1,6 @@
-header {
+.header {
   align-items: center;
-  background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/too-many-questions-royalty-free-image-487063216-1545936032.jpg');
+  background-color: #282c34;
   display: flex;
   flex-direction: column;
   padding: 10px;
