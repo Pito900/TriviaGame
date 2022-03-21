@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import '../Css/Feedback.css';
+import '../CSS/feedback.css';
 
 class Feedback extends React.Component {
   handleClick = () => {

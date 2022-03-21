@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { headerScore } from '../redux/actions/ranking';
 import { saveInfosPlayer } from '../redux/actions/player';
-import './questions.css'
+import '../CSS/questions.css';
 
 class Questions extends React.Component {
   state ={
@@ -174,33 +174,33 @@ class Questions extends React.Component {
     //  maxQuestions,
     } = this.state;
     return (
-      <div class='questions'>
-        <div class="question-category">
+      <div className="questions">
+        <div className="question-category">
 
-        <h2
-          class='categoryId'
-          data-testid="question-category"
+          <h2
+            className="categoryId"
+            data-testid="question-category"
           >
-          {' '}
-          {category}
-        </h2>
-        <h3
-        id='questionId'
-          data-testid="question-text"
+            {' '}
+            {category}
+          </h2>
+          <h3
+            id="questionId"
+            data-testid="question-text"
           >
-          {question}
-        </h3>
+            {question}
+          </h3>
         </div>
-        <div class="timer-options">
-          <section class="options" data-testid="answer-options">
+        <div className="timer-options">
+          <section className="options" data-testid="answer-options">
             {allQuestions.map((item) => (
               <button
-                className={ !disabledResponses ? 'button' : 'button-disable'}
+                className={ !disabledResponses ? 'button' : 'button-disable' }
                 key={ item }
                 type="button"
                 data-testid={ item === correctAnswer ? 'correct-answer'
                   : (`wrong-answer-${
-                  allQuestions.indexOf(`${item}`)
+                    allQuestions.indexOf(`${item}`)
                   }`) }
                 onClick={ () => this.clicked(item) }
                 style={ clicked ? this.responding(item)
@@ -211,14 +211,14 @@ class Questions extends React.Component {
               </button>
             ))}
           </section>
-          <p class='timer'>
-            <span class='contador'>
-            {time >= 0 ? time : 0}
+          <p className="timer">
+            <span className="contador">
+              {time >= 0 ? time : 0}
             </span>
           </p>
         </div>
         <button
-          class="nextButton"
+          className="nextButton"
           type="button"
           data-testid="btn-next"
           onClick={ this.nextQ }
@@ -226,7 +226,6 @@ class Questions extends React.Component {
         >
           Next
         </button>
-
 
       </div>
     );
