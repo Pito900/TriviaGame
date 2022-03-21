@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  componentDidMount() {
+    const { name, score, picture } = this.props;
+    localStorage.setItem('ranking', JSON.stringify([{ name, score, picture }]));
+    // salvando o ranking do header no localStorage pra pegar no ranking
+  }
+
   render() {
     const {
       name,
