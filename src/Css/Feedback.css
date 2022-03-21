@@ -1,0 +1,36 @@
+.feedbackPage {
+  align-items: center;
+  background-color: rgb(132, 169,140);
+  color: rgb(47, 62, 70);
+  display: flex;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.buttons {  
+  background-color: rgb(47, 62, 70);
+  border: 5px solid #52796F;
+  border-radius: 10px;
+  color: #52796F;
+  font-size: 30px;
+  margin: 10px 20px;
+  padding: 10px 8px;
+  transition: 0.30s;
+  box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+}
+
+.buttons:active {
+  transform: scale(0.98);
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.punctuation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-direction: column;
+  margin: 10px 40px;
+}
