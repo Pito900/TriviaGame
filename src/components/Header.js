@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './header.css';
 
 class Header extends React.Component {
   componentDidMount() {
@@ -16,11 +17,13 @@ class Header extends React.Component {
       picture,
     } = this.props;
     return (
-      <section>
-        <img src={ picture } alt="" data-testid="header-profile-picture" />
-        <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">{ score }</p>
-      </section>
+      <header>
+        <div>
+          <img class="avatar" src={ picture } alt="" data-testid="header-profile-picture" />
+          <p class="name" data-testid="header-player-name">{ name }</p>
+        </div>
+        <p class="score" data-testid="header-score">{ score }</p>
+      </header>
     );
   }
 }
