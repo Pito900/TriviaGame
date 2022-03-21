@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { headerScore } from '../redux/actions/ranking';
 import { saveInfosPlayer } from '../redux/actions/player';
+<<<<<<< Updated upstream
 import '../CSS/questions.css';
+=======
+import './questions.css'
+>>>>>>> Stashed changes
 
 class Questions extends React.Component {
   state ={
@@ -174,6 +178,7 @@ class Questions extends React.Component {
     //  maxQuestions,
     } = this.state;
     return (
+<<<<<<< Updated upstream
       <div className="questions">
         <div className="question-category">
 
@@ -196,11 +201,39 @@ class Questions extends React.Component {
             {allQuestions.map((item) => (
               <button
                 className={ !disabledResponses ? 'button' : 'button-disable' }
+=======
+      <div class='questions'>
+        <div class="question-category">
+
+        <h2
+          class='categoryId'
+          data-testid="question-category"
+          >
+          {' '}
+          {category}
+        </h2>
+        <h3
+        id='questionId'
+          data-testid="question-text"
+          >
+          {question}
+        </h3>
+        </div>
+        <div class="timer-options">
+          <section class="options" data-testid="answer-options">
+            {allQuestions.map((item) => (
+              <button
+                className={ !disabledResponses ? 'button' : 'button-disable'}
+>>>>>>> Stashed changes
                 key={ item }
                 type="button"
                 data-testid={ item === correctAnswer ? 'correct-answer'
                   : (`wrong-answer-${
+<<<<<<< Updated upstream
                     allQuestions.indexOf(`${item}`)
+=======
+                  allQuestions.indexOf(`${item}`)
+>>>>>>> Stashed changes
                   }`) }
                 onClick={ () => this.clicked(item) }
                 style={ clicked ? this.responding(item)
@@ -211,14 +244,24 @@ class Questions extends React.Component {
               </button>
             ))}
           </section>
+<<<<<<< Updated upstream
           <p className="timer">
             <span className="contador">
               {time >= 0 ? time : 0}
+=======
+          <p class='timer'>
+            <span class='contador'>
+            {time >= 0 ? time : 0}
+>>>>>>> Stashed changes
             </span>
           </p>
         </div>
         <button
+<<<<<<< Updated upstream
           className="nextButton"
+=======
+          class="nextButton"
+>>>>>>> Stashed changes
           type="button"
           data-testid="btn-next"
           onClick={ this.nextQ }
@@ -227,6 +270,10 @@ class Questions extends React.Component {
           Next
         </button>
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
       </div>
     );
   }
