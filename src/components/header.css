@@ -1,0 +1,26 @@
+header {
+  align-items: center;
+  background-image: url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/too-many-questions-royalty-free-image-487063216-1545936032.jpg');
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.avatar {
+  cursor: pointer;
+  height: 77px;
+  max-width: 80px;
+}
+
+.name {
+  background-color: rgb(158, 180, 173);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.score {
+  background-color: rgb(158, 180, 173);
+  border-radius: 50%;
+  padding: 10px;
+}
+
